@@ -23,7 +23,17 @@ services:
         - 4200:4200
       networks:
       - shared-network
-  server:
+
+  nginx-server:
+      build:
+        dockerfile: dockerfile
+        context: ./nginx
+      ports:
+        - 8080:8080
+      networks:
+      - shared-network
+
+  api-server:
       build:
         dockerfile: Dockerfile
         context: ./server
@@ -35,6 +45,7 @@ services:
         - 5000:5000
       networks:
       - shared-network
+
   mongo-server:
     image: mongo:latest     #Possiamo scaricare l'immagine anche da
     hostname: test_mongodb  #cambia l'hostname da mongo-server a test_mongo
